@@ -27,7 +27,7 @@ RUN mkdir /src \
     && wget http://www.squid-cache.org/Versions/v4/squid-$SQUID_VERSION.tar.xz \
     && mkdir squid \
     && tar -C squid --strip-components=1 -xvf squid-$SQUID_VERSION.tar.xz
-    
+
 RUN cd /src/squid && \
     ./configure \
         --prefix=/usr \
@@ -56,7 +56,7 @@ RUN cd /src/squid && \
 		--enable-zph-qos \
 		--with-openssl \
 		--enable-ssl \
-		--enable-ssl-crtd \ 
+		--enable-ssl-crtd \
 		--disable-translation \
 		--with-swapdir=/var/spool/squid4 \
 		--with-logdir=/var/log/squid4 \
@@ -65,7 +65,7 @@ RUN cd /src/squid && \
 		--with-large-files \
 		--with-default-user=proxy \
         	--disable-arch-native
-		
+
 ARG CONCURRENCY=1
 
 RUN cd /src/squid && \
@@ -114,7 +114,8 @@ ENV HTTP_PORT=3128 \
     DNS_OVER_HTTPS_NO_FALLTHROUGH="" \
     DNS_OVER_HTTPS_FALLTHROUGH_STATUSES=NXDOMAIN \
     DNS_OVER_HTTPS_PREFIX_SERVER= \
-    DNS_OVER_HTTPS_SUFFIX_SERVER=
+    DNS_OVER_HTTPS_SUFFIX_SERVER= \
+    SQUID_CONFIG=
 
 EXPOSE 3128
 
