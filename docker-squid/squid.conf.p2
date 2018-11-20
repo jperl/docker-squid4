@@ -18,12 +18,6 @@ cache_dir aufs /var/cache/squid4 {{MAX_CACHE_SIZE|default:"40000"}} 16 256
 maximum_object_size {{MAX_OBJECT_SIZE|default:"1536 MB"}}
 cache_mem {{MEM_CACHE_SIZE|default:"128 MB"}}
 
-refresh_pattern . 100080 100% 100080 override-expire override-lastmod ignore-reload ignore-no-store ignore-private store-stale
-
-{% if SQUID_CONFIG|default:"" != "" %}
-{{SQUID_CONFIG}}
-{% endif %}
-
 tls_outgoing_options capath=/etc/ssl/certs \
     options={{TLS_OPTIONS|default:"NO_SSLv3,NO_TLSv1"}} \
     cipher=ALL:!RC4:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!SRP:!DSS
@@ -50,7 +44,3 @@ htcp_access allow all
 {% endif %}
 
 http_access allow all
-
-acl BadSite ssl_error SQUID_X509_V_ERR_DOMAIN_MISMATCH
-sslproxy_cert_error allow BadSite
-sslproxy_cert_error deny all
